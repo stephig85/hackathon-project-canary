@@ -16,34 +16,42 @@ var clients = [
 	{
 		id: 'csttires',
 		pie_status: ['fail', {}],
-		feed_status: ['stale', {}],
+		feed_status: ['stale', {
+			latest_successful_import: '2019-05-13 09:26:03.478039',
+        	over_thirty: false
+		}],
 		display_status: ['pass', {}],
 		pixel_status: ['pass', {}],
 	},
 	{
 		id: 'hasbro',
 		pie_status: ['pass', {}],
-		feed_status: ['pass', {}],
+		feed_status: ['pass', {
+			latest_successful_import: '2019-05-13 09:26:03.478039',
+        	over_thirty: true
+		}],
 		display_status: ['pass', {}],
 		pixel_status: ['pass', {}],
 	},
 	{
 		id: 'walmart',
 		pie_status: ['fail', {}],
-		feed_status: ['fail', {}],
+		feed_status: ['fail', {
+			latest_successful_import: '',
+        	over_thirty: true
+		}],
 		display_status: ['fail', {}],
 		pixel_status: ['fail', {}],
 	},
 		{
 		id: 'target',
 		pie_status: ['pass', {}],
-		feed_status: ['pass', {}],
+		feed_status: ['pass', {
+			latest_successful_import: '2019-05-13 09:26:03.478039',
+        	over_thirty: true
+		}],
 		display_status: ['fail', {}],
 		pixel_status: ['fail', {}],
 	}]
 
-var feed_status = [
-    {
-        latest_successful_import: 'datetime_string',
-        over_thirty: true
-    }];
+
