@@ -8,17 +8,15 @@ app = Flask(__name__)
 app.config['MONGO_URI'] = "mongodb://127.0.0.1:27017/canary"
 mongo = PyMongo(app)
 
+# Display home page with or without client
 @app.route('/', methods=["GET"])
 @app.route('/<client>', methods=["GET"])
 def home(client=None):
     return render_template("index.html", client=client)
 
-@app.route("/", methods=["POST"])
-def display_subscriber():
-    client = request.form["chooseClient"]
-    return render_template("index.html", client=client)
 
-@app.route("/subscriber/<subscriber>", methods=["GET", "POST"]) 
+# Display subscriber page or create new 
+@app.route("/subscriber/<subscriber>", methods=["GET"]) 
 def subscriber(subscriber):
     if request.method == 'GET':
         user =  mongo.db.users.find_one({"id":subscriber})
@@ -27,7 +25,8 @@ def subscriber(subscriber):
             return render_template("subscriber.html")
         else:
             return render_template("subscriber.html", subscriber=user)
-
+    if request.method == 'POST':
+        pass
 
 @app.route("/subscriber/add_subscription", methods=["POST"]) 
 def add_subscription():
@@ -40,14 +39,9 @@ def add_subscription():
     return jsonify({})
 
 
-
-
-
-
 @app.route("/", methods=["POST"])
 def run_checks():
     return render_template("index.html")
-
 
 
 @app.route("/", methods=["POST"])
