@@ -3,6 +3,7 @@ from requests.auth import HTTPBasicAuth
 from datetime import datetime, timedelta
 import csv
 import json
+from utils.credentials import ldap_username, ldap_password
 
 def thirty_day_notify(import_object):
     cutoff_date = datetime.today() - timedelta(days=30)
@@ -29,22 +30,21 @@ def pop_import_types():
 def main_productfeed(client_name):
     wb_name = 'americanstandard-ca'
 
-    endpoint = 'http://sodexo.bazaar.us-east-1.nexus.bazaarvoice.com/api/v1/job?client=' + 
-        client_name + '&type=cis_xml_import'
+    endpoint = 'http://sodexo.bazaar.us-east-1.nexus.bazaarvoice.com/api/v1/job?client=' + str(client_name) + '&type=cis_xml_import'
     # ldap credentials here
-    username = ''
-    password = ''
+    username = ldap_username
+    password = ldap_password
     r = requests.get(endpoint, auth=HTTPBasicAuth(username, password))
 
     stale_data = False
 
-    main_object_return = {
-        latest_successful_import: '',
-        latest_failed_import: ''
-    }
-
     latest_successful_import_index = None
     latest_failed_import_index = None
+
+    main_object_return = {
+        'latest_successful_import': '',
+        'latest_failed_import': ''
+    }
 
     all_imports = list(json.loads(r.text))
 
@@ -79,14 +79,23 @@ def main_productfeed(client_name):
         stale_data = True
 
 
-    print('Latest successful import object')
-    print(all_imports[latest_successful_import_index])
+    # print('Latest successful import object')
+    # print(all_imports[latest_successful_import_index])
 
-    print('Latest failed import object')
-    print(all_imports[latest_failed_import_index])
+    # print('Latest failed import object')
+    # print(all_imports[latest_failed_import_index])
 
-    main_object_return.latest_successful_import = all_imports[latest_successful_import_index]
-    main_object_return.latest_failed_import = all_imports[latest_failed_import_index]
+    try:
+        main_object_return.latest_successful_import = all_imports[latest_successful_import_index]
+    except:
+        print('No Successful imports')
+        main_object_return.latest_successful_import = None
+    
+    try:
+        main_object_return.latest_failed_import = all_imports[latest_failed_import_index]
+    except:
+        print('No Failed imports')
+        main_object_return.latest_failed_import = None
     # example object
     # ['stale', {
     #     latest_successful_import: '2019-05-13 09:26:03.478039',
