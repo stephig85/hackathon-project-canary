@@ -8,6 +8,7 @@ import json
 wb_name = 'americanstandard-ca'
 
 endpoint = 'http://sodexo.bazaar.us-east-1.nexus.bazaarvoice.com/api/v1/job?client=' + wb_name
+# ldap credentials here
 username = ''
 password = ''
 r = requests.get(endpoint, auth=HTTPBasicAuth(username, password))
