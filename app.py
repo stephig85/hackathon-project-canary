@@ -2,6 +2,8 @@ import os
 
 from flask import Flask, render_template, request, redirect, jsonify
 from flask_pymongo import PyMongo
+from utils.canary-productfeed import *
+from utils.pie_sends import *  
 
 app = Flask(__name__)
 
@@ -43,7 +45,7 @@ def add_subscription():
 def run_checks(client):
     # Run Checks
     pie_status = pass 
-    feed_status = pass
+    feed_status = main_productfeed(client)
     display_status = pass
     pixel_status = pass
 
