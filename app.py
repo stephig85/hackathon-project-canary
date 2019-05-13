@@ -39,17 +39,17 @@ def add_subscription():
 @app.route("/run/<client>", methods=["GET"])
 def run_checks(client):
     # Run Checks
-    pie_status = None
+    pie_status = ['Fail', {}]
     feed_status = main_productfeed(client)
-    display_status = None
-    pixel_status = None
+    display_status = ['Fail', {}]
+    pixel_status = ['Fail', {}]
     # Build Response JSON
     results = jsonify({
-        id: client,
+        'id': client,
         'pie_status': pie_status,
         'feed_status': feed_status,
         'display_status': display_status,
-        'pixel_status': pixel_status,
+        'pixel_status': pixel_status
     })
     # Register Updates
     mongo.db.clients.update(results)
