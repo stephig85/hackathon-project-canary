@@ -37,7 +37,10 @@ def main_productfeed(client_name):
     r = requests.get(endpoint, auth=HTTPBasicAuth(username, password))
 
     main_successful_imports = True
-    main_object = {}
+    stale_data = False
+    main_object_return = {
+        latest_successful_import: ''
+    }
 
     latest_successful_import_index = None
     latest_failed_import_index = None
@@ -79,6 +82,8 @@ def main_productfeed(client_name):
 
     print('Latest failed import object')
     print(all_imports[latest_failed_import_index])
+    
+
 
 
 
