@@ -44,16 +44,17 @@ def run_checks(client):
     display_status = ['Fail', {}]
     pixel_status = ['Fail', {}]
     # Build Response JSON
-    results = jsonify({
+    results = {
         'id': client,
         'pie_status': pie_status,
         'feed_status': feed_status,
         'display_status': display_status,
         'pixel_status': pixel_status
-    })
+    }
     # Register Updates
-    mongo.db.clients.update(results)
-    return results
+    print(results)
+    mongo.db.clients.update({ 'id': client } , results)
+    return jsonify(results)
 
 
 @app.route("/", methods=["POST"])
