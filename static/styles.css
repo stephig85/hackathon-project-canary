@@ -1,0 +1,139 @@
+a {
+    color: #003D4D
+}
+
+body {
+    background-color: #FAFAF7;
+    font-family: 'Open Sans', sans-serif;
+}
+
+fieldset {
+    border: none;
+    margin: 1.5em 0em;
+    padding: 0px;
+}
+
+footer {
+    background: #D3D3D3;
+    bottom: 0;
+    font-size: .8em;
+    left: 0;
+    padding: 1em 0px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+header {
+    align-items: center;
+    background-color: #003D4D;
+    color: #33BCA5;
+    display: flex;
+    padding: 1em;
+}
+
+header h1 {
+    display: inline-block;
+    /* top margin of 11px to make the text align vertically with the b: logo's colons */
+    margin: 11px 0px 0px 0px;
+}
+
+legend {
+    font-weight: bold;
+    margin: 0em 0em .5em 0em;
+    padding: 0px;
+}
+
+main {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+#chooseClient {
+    font-size: large;
+    padding: .75em;
+    width: 100%;
+}
+
+#errorMessage {
+    /* hide by default; noty will unhide with style when necessary */
+    display: none;
+}
+
+#inactive-tooltip {
+    border-radius: 50%;
+    display: inline-block;
+    font-size: small;
+    height: 16px;
+    text-align: center;
+    width: 16px;
+}
+
+#submit {
+    background: #E97C36;
+    border: none;
+    box-shadow: 1px 1px 1px #808080;
+    color: #FFFFFF;
+    display: block;
+    font-size: large;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+    padding: 1em;
+}
+
+#submit:hover {
+    filter: brightness(85%);
+}
+
+#submit:active {
+    border: none;
+    box-shadow: none;
+    left: 1px;
+    outline: none;
+    position: relative;
+    top: 1px;
+}
+
+.awesomplete {
+    display: block;
+}
+
+.disabled-field {
+    opacity: .5;
+}
+
+.field-container {
+    display: inline-block;
+    margin-right: .75em;
+}
+
+.fieldset-container {
+    margin-left: 1em;
+}
+
+.logo {
+    /* margin to satisfy BV logo style guidelines. this is highly dependent on the logo image's size */
+    /* see https://bvoice.sharepoint.com/BV%20Brand%20Assets/Logos/+BVLogos_ALL_ContactSheet.pdf?csf=1 */
+    margin: 12px;
+}
+
+.main-content {
+    margin-bottom: 2em;
+}
+
+.notice {
+    background-color: #FFF3D4;
+    border: thin solid #000000;
+    font-weight: bold;
+}
+
+ul.notice {
+    margin-top: 2em;
+    padding: 1em 2em;
+}
+
+.noty_text {
+    font-size: 1.5em;
+}
