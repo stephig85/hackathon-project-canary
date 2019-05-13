@@ -4,13 +4,11 @@ a {
 
 body {
   background-color: #FAFAF7;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'gibsonregular', sans-serif;
 }
 
-fieldset {
-  border: none;
-  margin: 1.5em 0em;
-  padding: 0px;
+h1 {
+    margin-top: .5em;
 }
 
 footer {
@@ -22,26 +20,19 @@ footer {
   position: absolute;
   text-align: center;
   width: 100%;
-}''
+}
 
 header {
   align-items: center;
   background-color: #003D4D;
   color: #33BCA5;
-  display: flex;
   padding: 1em;
-}
-
-header h1 {
-  display: inline-block;
-  /* top margin of 11px to make the text align vertically with the b: logo's colons */
-  margin: 11px 0px 0px 0px;
 }
 
 legend {
   font-weight: bold;
-  margin: 0em 0em .5em 0em;
-  padding: 0px;
+  margin: .5em 0em .5em 0em;
+  padding: 10px;
 }
 
 main {
@@ -96,12 +87,8 @@ main {
   top: 1px;
 }
 
-.awesomplete {
-  display: block;
-}
-
-.disabled-field {
-  opacity: .5;
+.logo {
+    margin-bottom: 12px;
 }
 
 .field-container {
@@ -111,12 +98,6 @@ main {
 
 .fieldset-container {
   margin-left: 1em;
-}
-
-.logo {
-  /* margin to satisfy BV logo style guidelines. this is highly dependent on the logo image's size */
-  /* see https://bvoice.sharepoint.com/BV%20Brand%20Assets/Logos/+BVLogos_ALL_ContactSheet.pdf?csf=1 */
-  margin: 12px;
 }
 
 .main-content {
@@ -132,8 +113,4 @@ main {
 ul.notice {
   margin-top: 2em;
   padding: 1em 2em;
-}
-
-.noty_text {
-  font-size: 1.5em;
 }

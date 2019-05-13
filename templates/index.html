@@ -1,42 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>Canary</title>
+  <meta charset="UTF-8">
+  <title>Canary</title>
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="../static/styles.css">
 </head>
+
 <body>
-	 <header>
-            <h1>Canary</h1>
-        </header>
-         <div class="content">
-            <main>
-                <div class="main-content">
-                    <form action="." method="GET">
-                            <legend>Client Name</legend>
-                            <input type="text" id="chooseClient" name="chooseClient" placeholder="Client Name" required />
-                           <!--  <legend>Environment</legend>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <img src="../static/b-logo.jpg" width="100" class="d-inline-block logo" alt="b-logo">
+      <h1>Canary</h1>
+  </header>
+
+  <div class="content">
+    <main>
+      <div class="main-content">
+        <form action="." method="GET">
+          <legend>Client Name</legend>
+          <input type="text" id="chooseClient" name="chooseClient" placeholder="Client Name" required />
+          <!--  <legend>Environment</legend>
                             <input type="radio" id="chooseEnvironment_prod" name="chooseEnvironment" value="prod" required checked />
                             <label for="chooseEnvironment_prod">Production</label>
                             <input type="radio" id="chooseEnvironment_stg" name="chooseEnvironment" value="stg" required />
                             <label for="chooseEnvironment_stg">Staging</label> -->
-                        <input type="submit" id="submit" value="Submit">
-                    </form>
-					
-					{% if client %}
-					  <h1>{{ client }}</h1>
-					{% else %}
-					  <h1>Please Select a Client</h1>
-                      <!-- Add client option -->
-					{% endif %}					
+          <input type="submit" id="submit" value="Submit">
+        </form>
 
-                </div>
-                <ul class="notice">
-                    <li>Canary updates nightly. Please avoid running jobs</li>
-                </ul>
-            </main>
-        </div>
-        <footer>
-            <p>Find a bug? Have a feature request? Need someone to talk to? Reach out to Eddy Ruz in Slack</p>
-        </footer>
+        {% if client %}
+        <h1>{{ client }}</h1>
+        {% else %}
+        <h1>Please Select a Client</h1>
+        <!-- Add client option -->
+        {% endif %}
+
+      </div>
+      <ul class="notice">
+        <li>Canary updates nightly. Please avoid running jobs</li>
+      </ul>
+    </main>
+  </div>
+
+  <footer>
+    <p>Find a bug? Have a feature request? Need someone to talk to? Reach out to Eddy Ruz in Slack</p>
+  </footer>
 </body>
+
 </html>
