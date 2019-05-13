@@ -36,10 +36,11 @@ def main_productfeed(client_name):
     password = ''
     r = requests.get(endpoint, auth=HTTPBasicAuth(username, password))
 
-    main_successful_imports = True
     stale_data = False
+
     main_object_return = {
-        latest_successful_import: ''
+        latest_successful_import: '',
+        latest_failed_import: ''
     }
 
     latest_successful_import_index = None
@@ -75,6 +76,7 @@ def main_productfeed(client_name):
 
     if thirty_day_notify(all_imports[latest_successful_import_index]):
         print('Notify client last import was 30 days ago')
+        stale_data = True
 
 
     print('Latest successful import object')
@@ -82,7 +84,19 @@ def main_productfeed(client_name):
 
     print('Latest failed import object')
     print(all_imports[latest_failed_import_index])
+
+    main_object_return.latest_successful_import = all_imports[latest_successful_import_index]
+    main_object_return.latest_failed_import = all_imports[latest_failed_import_index]
+    # example object
+    # ['stale', {
+    #     latest_successful_import: '2019-05-13 09:26:03.478039',
+    #     latest_failed_import: '2019-05-06 09:26:03.478039'
+    # }]
+
+    final_return_object = [stale_data, main_object_return]
+    return final_return_object
     
+
 
 
 
