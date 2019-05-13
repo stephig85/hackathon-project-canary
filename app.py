@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, render_template, request, redirect, jsonify
 from flask_pymongo import PyMongo
-from utils.canary-productfeed import *
+from utils.canary_productfeed import *
 from utils.pie_sends import *  
 
 app = Flask(__name__)
