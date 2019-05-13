@@ -24,8 +24,9 @@ footer {
 
 header {
   align-items: center;
-  background-color: #003D4D;
-  color: #33BCA5;
+  /* background-color: #003D4D; */
+  /* color: #33BCA5; */
+  color: #003D4D;
   padding: 1em;
 }
 
