@@ -1,4 +1,3 @@
-
 import requests
 from requests.auth import HTTPBasicAuth
 from datetime import datetime, timedelta

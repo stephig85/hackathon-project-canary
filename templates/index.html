@@ -11,7 +11,7 @@
          <div class="content">
             <main>
                 <div class="main-content">
-                    <form action="." method="post">
+                    <form action="." method="GET">
                             <legend>Client Name</legend>
                             <input type="text" id="chooseClient" name="chooseClient" placeholder="Client Name" required />
                            <!--  <legend>Environment</legend>
@@ -26,6 +26,7 @@
 					  <h1>{{ client }}</h1>
 					{% else %}
 					  <h1>Please Select a Client</h1>
+                      <!-- Add client option -->
 					{% endif %}					
 
                 </div>
