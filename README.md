@@ -12,10 +12,10 @@ export FLASK_APP=app.py
 flask run
 ```
 
-2. Run Mango
+2. Run Mongo
 
 ```
-brew install mangodb
+brew install mongodb
 sudo mkdir -p /data/db
 sudo chown -R `id -un` /data/db
 mongod
