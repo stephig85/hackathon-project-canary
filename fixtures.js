@@ -17,8 +17,7 @@ var clients = [
 		id: 'csttires',
 		pie_status: ['fail', {}],
 		feed_status: ['stale', {
-			latest_successful_import: '2019-05-13 09:26:03.478039',
-        	over_thirty: false
+			latest_successful_import: '2019-05-13 09:26:03.478039'
 		}],
 		display_status: ['pass', {}],
 		pixel_status: ['pass', {}],
@@ -27,8 +26,7 @@ var clients = [
 		id: 'hasbro',
 		pie_status: ['pass', {}],
 		feed_status: ['pass', {
-			latest_successful_import: '2019-05-13 09:26:03.478039',
-        	over_thirty: true
+			latest_successful_import: '2019-05-13 09:26:03.478039'
 		}],
 		display_status: ['pass', {}],
 		pixel_status: ['pass', {}],
@@ -47,8 +45,7 @@ var clients = [
 		id: 'target',
 		pie_status: ['pass', {}],
 		feed_status: ['pass', {
-			latest_successful_import: '2019-05-13 09:26:03.478039',
-        	over_thirty: true
+			latest_successful_import: '2019-05-13 09:26:03.478039'
 		}],
 		display_status: ['fail', {}],
 		pixel_status: ['fail', {}],
