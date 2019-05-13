@@ -1,5 +1,5 @@
 var users = 
-	{	id: 'greg.garcia', 
+	[{	id: 'greg.garcia', 
 		email: 'greg.garcia@bazaarvoice.com', 
 		subscriptions: ['csttires', 'hasbro'] 
 	},
@@ -10,9 +10,9 @@ var users =
 	{	id: 'brian.chang', 
 		email: 'greg.garcia@bazaarvoice.com', 
 		subscriptions: ['csttires', 'walmart']
-	};
+	}];
 
-var clients = {
+var clients = [
 	{
 		id: 'csttires',
 		pie_status: ['fail', {}],
@@ -33,12 +33,17 @@ var clients = {
 		feed_status: ['fail', {}],
 		display_status: ['fail', {}],
 		pixel_status: ['fail', {}],
-	}
+	},
 		{
 		id: 'target',
 		pie_status: ['pass', {}],
 		feed_status: ['pass', {}],
 		display_status: ['fail', {}],
 		pixel_status: ['fail', {}],
-	}
-}
+	}]
+
+var feed_status = [
+    {
+        latest_successful_import: 'datetime_string',
+        over_thirty: true
+    }];

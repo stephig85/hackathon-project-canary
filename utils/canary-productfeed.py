@@ -4,22 +4,6 @@ from datetime import datetime, timedelta
 import csv
 import json
 
-wb_name = 'americanstandard-ca'
-
-endpoint = 'http://sodexo.bazaar.us-east-1.nexus.bazaarvoice.com/api/v1/job?client=' + wb_name
-# ldap credentials here
-username = ''
-password = ''
-r = requests.get(endpoint, auth=HTTPBasicAuth(username, password))
-
-main_successful_imports = True
-main_object = {}
-
-latest_successful_import_index = None
-latest_failed_import_index = None
-
-all_imports = list(json.loads(r.text))
-
 def thirty_day_notify(import_object):
     cutoff_date = datetime.today() - timedelta(days=30)
     try:
@@ -30,56 +14,72 @@ def thirty_day_notify(import_object):
         pass
 
 # remove all non-product feed imports
-for index, single_import in enumerate(all_imports):
-    try:
-        import_type = single_import['type']
-        if import_type != 'cis_xml_import':
-            all_imports.pop()[index]
-    except Exception as e:
-        pass
+def pop_import_types():
+    for index, single_import in enumerate(all_imports):
+        try:
+            import_type = single_import['type']
+            if import_type != 'cis_xml_import':
+                all_imports.pop()[index]
+        except Exception as e:
+            pass
         
 # date last feed failed
 # if passed, what was the latest successful import
 # if passed, notify if longer than 30 days
+def main_productfeed(client_name):
+    wb_name = 'americanstandard-ca'
 
-for index, single_import in enumerate(all_imports):
-    try:
-        imp_status = single_import['status']
-        last_update = single_import['completeTime']
-        
-        if imp_status == 'failed':
-            if latest_failed_import_index == None:
-                latest_failed_import_index = index
-            else:
-                compare_time = single_import['completeTime']
-                current_time = all_import[latest_successful_import_index]['completeTime']
-                if compare_time > current_time:
-                    latest_failed_import_index 
-                    
-        if imp_status == 'completed':
-            if latest_successful_import_index == None:
-                latest_successful_import_index = index
-            else:
-                compare_time = single_import['completeTime']
-                current_time = all_import[latest_successful_import_index]['completeTime']
-                if compare_time > current_time:
+    endpoint = 'http://sodexo.bazaar.us-east-1.nexus.bazaarvoice.com/api/v1/job?client=' + 
+        client_name + '&type=cis_xml_import'
+    # ldap credentials here
+    username = ''
+    password = ''
+    r = requests.get(endpoint, auth=HTTPBasicAuth(username, password))
+
+    main_successful_imports = True
+    main_object = {}
+
+    latest_successful_import_index = None
+    latest_failed_import_index = None
+
+    all_imports = list(json.loads(r.text))
+
+    for index, single_import in enumerate(all_imports):
+        try:
+            imp_status = single_import['status']
+            last_update = single_import['completeTime']
+            
+            if imp_status == 'failed':
+                if latest_failed_import_index == None:
+                    latest_failed_import_index = index
+                else:
+                    compare_time = single_import['completeTime']
+                    current_time = all_import[latest_successful_import_index]['completeTime']
+                    if compare_time > current_time:
+                        latest_failed_import_index 
+                        
+            if imp_status == 'completed':
+                if latest_successful_import_index == None:
                     latest_successful_import_index = index
-        
-    except Exception as e:
-        pass
+                else:
+                    compare_time = single_import['completeTime']
+                    current_time = all_import[latest_successful_import_index]['completeTime']
+                    if compare_time > current_time:
+                        latest_successful_import_index = index
+            
+        except Exception as e:
+            pass
 
-if thirty_day_notify(all_imports[latest_successful_import_index]):
-    print('Notify client last import was 30 days ago')
-
-
-print('Latest successful import object')
-print(all_imports[latest_successful_import_index])
-
-print('Latest failed import object')
-print(all_imports[latest_failed_import_index])
+    if thirty_day_notify(all_imports[latest_successful_import_index]):
+        print('Notify client last import was 30 days ago')
 
 
-# In[ ]:
+    print('Latest successful import object')
+    print(all_imports[latest_successful_import_index])
+
+    print('Latest failed import object')
+    print(all_imports[latest_failed_import_index])
+
 
 
 
