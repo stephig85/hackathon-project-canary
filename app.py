@@ -41,7 +41,25 @@ def add_subscription():
 
 @app.route("/run/<client>", methods=["GET"])
 def run_checks(client):
-    return jsonify({})
+    # Run Checks
+    pie_status = pass 
+    feed_status = pass
+    display_status = pass
+    pixel_status = pass
+
+    # Build Response JSON
+    results = jsonify({
+         id: client,
+        'pie_status' : pie_status,
+        'feed_status' : feed_status,
+        'display_status' : display_status,
+        'pixel_status' : pixel_status,         
+        })
+
+    # Register Updates
+    mongo.db.clients.update(results)
+
+    return results
 
 
 @app.route("/", methods=["POST"])
