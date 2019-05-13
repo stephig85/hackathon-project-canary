@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Canary</title>
+</head>
+<body>
+	 <header>
+            <h1>Canary</h1>
+        </header>
+         <div class="content">
+            <main>
+                <button>Create New Subscriber</button>
+                <div class="main-content">
+					{% if subscriber %}
+					  <h1>{{ subscriber.id }}</h1>
+                      <p>{{ subscriber.email }}</p>
+                      <ul>
+                      {% for client in subscriber.subscriptions %}
+                        <li>{{ client }}</li>
+                      {% endfor %}
+                      </ul>
+                       <form action="/subscriber/add_subscription" method="POST">
+                            <legend>Add Subscription</legend>
+                            <input type="text" id="chooseClient" name="chooseClient" placeholder="Client Name" required />
+                            <input class='chooseSubscriber' type="text" name="chooseSubscriber" id="chooseSubscriber" value="{{ subscriber.id }}">
+                           <!--  <legend>Environment</legend>
+                            <input type="radio" id="chooseEnvironment_prod" name="chooseEnvironment" value="prod" required checked />
+                            <label for="chooseEnvironment_prod">Production</label>
+                            <input type="radio" id="chooseEnvironment_stg" name="chooseEnvironment" value="stg" required />
+                            <label for="chooseEnvironment_stg">Staging</label> -->
+                        <input type="submit" id="submit" value="Submit">
+                        </form>
+					{% else %}
+					  <h1>Subscriber does not exist</h1>
+					{% endif %}					
+                </div>
+                <ul class="notice">
+                    <li>Canary updates nightly. Please avoid running jobs</li>
+                </ul>
+            </main>
+        </div>
+        <footer>
+            <p>Find a bug? Have a feature request? Need someone to talk to? Reach out to Eddy Ruz in Hip Chat</p>
+        </footer>
+</body>
+</html>
