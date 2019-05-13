@@ -45,11 +45,11 @@ def run_checks(client):
     pixel_status = None
     # Build Response JSON
     results = jsonify({
-        id: client,
+        'id': client,
         'pie_status': pie_status,
         'feed_status': feed_status,
         'display_status': display_status,
-        'pixel_status': pixel_status,
+        'pixel_status': pixel_status
     })
     # Register Updates
     mongo.db.clients.update(results)

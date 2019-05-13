@@ -86,16 +86,16 @@ def main_productfeed(client_name):
     # print(all_imports[latest_failed_import_index])
 
     try:
-        main_object_return.latest_successful_import = all_imports[latest_successful_import_index]
+        main_object_return['latest_successful_import'] = all_imports[latest_successful_import_index]['completeTime']
     except:
         print('No Successful imports')
-        main_object_return.latest_successful_import = None
+        main_object_return['latest_successful_import'] = None
     
     try:
-        main_object_return.latest_failed_import = all_imports[latest_failed_import_index]
+        main_object_return['latest_failed_import'] = all_imports[latest_failed_import_index]['completeTime']
     except:
         print('No Failed imports')
-        main_object_return.latest_failed_import = None
+        main_object_return['latest_failed_import'] = None
     # example object
     # ['stale', {
     #     latest_successful_import: '2019-05-13 09:26:03.478039',
