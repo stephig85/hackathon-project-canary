@@ -39,9 +39,9 @@ def add_subscription():
     return jsonify({})
 
 
-@app.route("/", methods=["POST"])
-def run_checks():
-    return render_template("index.html")
+@app.route("/run/<client>", methods=["GET"])
+def run_checks(client):
+    return jsonify({})
 
 
 @app.route("/", methods=["POST"])
