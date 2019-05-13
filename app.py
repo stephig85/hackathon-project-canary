@@ -39,10 +39,10 @@ def add_subscription():
 @app.route("/run/<client>", methods=["GET"])
 def run_checks(client):
     # Run Checks
-    pie_status = None
+    pie_status = ['Fail', {}]
     feed_status = main_productfeed(client)
-    display_status = None
-    pixel_status = None
+    display_status = ['Fail', {}]
+    pixel_status = ['Fail', {}]
     # Build Response JSON
     results = jsonify({
         'id': client,
