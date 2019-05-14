@@ -1,8 +1,11 @@
 # project-canary
 
-To run locally 
+## To Run Locally
 
-1. Run flask
+1. Install AWS CLI
+* https://bits.bazaarvoice.com/confluence/display/DEV/Day+2+-+Get+access+to+Nexus#Day2-GetaccesstoNexus-Exercise3-InstallAWSCLI
+
+2. Run flask
 
 ```
 python3 -m venv ./venv
@@ -13,7 +16,7 @@ export FLASK_ENV=development
 flask run
 ```
 
-2. Run Mongo
+3. Run Mongo
 
 ```
 brew install mongodb
