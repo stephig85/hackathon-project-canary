@@ -14,24 +14,10 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+  <script src="../static/main.js"></script>
   <!-- Canary Style Overrides -->
   <link rel="stylesheet" href="../static/styles.css">
-  <script>
-  function getClientName() {
-    var cName = $('#clientName').val()
-    window.location = "/" + cName
-  }
-  function reRun() {
-    var cName = $('#clientName').val()
-    $.ajax({
-      url: "/run/" + cName,
-      context: document.body
-    }).done(function() {
-      window.location = "/" + cName
-    });
-  }
-</script>
+
 </head>
 
 <body>
