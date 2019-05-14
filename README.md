@@ -27,3 +27,12 @@ mongo
 use canary
 db.users.insert({id: 'greg.garcia',email: 'greg.garcia@bazaarvoice.com',subscriptions: ['csttires', 'hasbro']})
 ```
+
+## Data Sources
+
+```
+Rolodex
+Sodexo
+(Magpie)
+Raven
+```
