@@ -54,16 +54,20 @@ def run_checks(client):
 
     try:
         pie_status = get_pie_status(client)
-    except:
+    except Exception:
         pie_status = 'error'
+        print(Exception)
     try:
         feed_status = get_product_feed_status(client)
-    except:
+    except Exception:
         feed_status = 'error'
+        print(Exception)
     try:
         display_status, pixel_status = get_display_status(client)
-    except:
+    except Exception:
         display_status, pixel_status = 'error'
+        print(Exception)
+
     # Build Response JSON
     results = {
         'id': client,

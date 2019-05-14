@@ -92,7 +92,6 @@ def get_display_status(client_name):
 
         # Get pixel data and check stDeviation
         pixel_orders = list(result_data['pixel_orders'].values())
-        print(pixel_orders)
         stdev_pixel = statistics.stdev(pixel_orders)
         avg_pixel = statistics.mean(pixel_orders)
         pixel_object_return['pixel_orders_daily_avg'] = round(avg_pixel)
