@@ -5,14 +5,17 @@ import csv
 import json
 from utils.credentials import ldap_username, ldap_password
 
+
 def thirty_day_notify(import_object):
     cutoff_date = datetime.today() - timedelta(days=30)
     try:
         complete_timestamp = import_object['completeTime']
         if complete_timestamp > cutoff_date:
             return True
-    except Exception as e:
+    except Exception:
+        print(Exception)
         pass
+
 
 # remove all non-product feed imports
 def pop_import_types(sodexo_request, import_type_string):
@@ -21,15 +24,16 @@ def pop_import_types(sodexo_request, import_type_string):
             import_type = single_import['type']
             if import_type != import_type_string:
                 sodexo_request.pop()[index]
-        except Exception as e:
+        except Exception:
+            print(Exception)
             pass
     return sodexo_request
-        
+
+
 # date last feed failed
 # if passed, what was the latest successful import
 # if passed, notify if longer than 30 days
 def get_product_feed_status(client_name):
-    wb_name = 'americanstandard-ca'
 
     endpoint = 'http://sodexo.bazaar.us-east-1.nexus.bazaarvoice.com/api/v1/job?client=' + str(client_name) 
     # ldap credentials here
@@ -54,7 +58,7 @@ def get_product_feed_status(client_name):
         try:
             imp_status = single_import['status']
             last_update = single_import['completeTime']
-            
+
             if imp_status == 'failed':
                 if latest_failed_import_index == None:
                     latest_failed_import_index = index
@@ -63,7 +67,7 @@ def get_product_feed_status(client_name):
                     current_time = all_import[latest_successful_import_index]['completeTime']
                     if compare_time > current_time:
                         latest_failed_import_index 
-                        
+
             if imp_status == 'completed':
                 if latest_successful_import_index == None:
                     latest_successful_import_index = index
@@ -72,8 +76,9 @@ def get_product_feed_status(client_name):
                     current_time = all_import[latest_successful_import_index]['completeTime']
                     if compare_time > current_time:
                         latest_successful_import_index = index
-            
-        except Exception as e:
+
+        except Exception:
+            print(Exception)
             pass
     # print('Latest successful import object')
     # print(all_imports[latest_successful_import_index])
@@ -83,21 +88,22 @@ def get_product_feed_status(client_name):
 
     try:
         main_object_return['latest_successful_import'] = all_imports[latest_successful_import_index]['completeTime']
-    except:
+    except Exception:
+        print(Exception)
         print('No Successful imports')
         main_object_return['latest_successful_import'] = None
         stale_data = 'pass'
         if thirty_day_notify(all_imports[latest_successful_import_index]):
             print('Notify client last import was 30 days ago')
             stale_data = 'stale'
-    
+
     try:
         main_object_return['latest_failed_import'] = all_imports[latest_failed_import_index]['completeTime']
-    except:
+    except Exception:
+        print(Exception)
         print('No Failed imports')
         main_object_return['latest_failed_import'] = None
 
-        
     # example object
     # pass, fail, stale
     # ['stale', {
@@ -107,14 +113,3 @@ def get_product_feed_status(client_name):
 
     final_return_object = [stale_data, main_object_return]
     return final_return_object
-    
-
-
-
-
-
-
-
-
-        
-
