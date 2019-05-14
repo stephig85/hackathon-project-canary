@@ -12,8 +12,8 @@ def thirty_day_notify(import_object):
         complete_timestamp = import_object['completeTime']
         if complete_timestamp > cutoff_date:
             return True
-    except Exception:
-        print(Exception)
+    except Exception as e:
+        print(e)
         pass
 
 
@@ -24,8 +24,8 @@ def pop_import_types(sodexo_request, import_type_string):
             import_type = single_import['type']
             if import_type != import_type_string:
                 sodexo_request.pop()[index]
-        except Exception:
-            print(Exception)
+        except Exception as e:
+            print(e)
             pass
     return sodexo_request
 
@@ -64,7 +64,7 @@ def get_product_feed_status(client_name):
                     latest_failed_import_index = index
                 else:
                     compare_time = single_import['completeTime']
-                    current_time = all_import[latest_successful_import_index]['completeTime']
+                    current_time = all_imports[latest_successful_import_index]['completeTime']
                     if compare_time > current_time:
                         latest_failed_import_index 
 
@@ -73,12 +73,12 @@ def get_product_feed_status(client_name):
                     latest_successful_import_index = index
                 else:
                     compare_time = single_import['completeTime']
-                    current_time = all_import[latest_successful_import_index]['completeTime']
+                    current_time = all_imports[latest_successful_import_index]['completeTime']
                     if compare_time > current_time:
                         latest_successful_import_index = index
 
-        except Exception:
-            print(Exception)
+        except Exception as e:
+            print(e)
             pass
     # print('Latest successful import object')
     # print(all_imports[latest_successful_import_index])
@@ -88,8 +88,8 @@ def get_product_feed_status(client_name):
 
     try:
         main_object_return['latest_successful_import'] = all_imports[latest_successful_import_index]['completeTime']
-    except Exception:
-        print(Exception)
+    except Exception as e:
+        print(e)
         print('No Successful imports')
         main_object_return['latest_successful_import'] = None
         stale_data = 'pass'
@@ -99,8 +99,8 @@ def get_product_feed_status(client_name):
 
     try:
         main_object_return['latest_failed_import'] = all_imports[latest_failed_import_index]['completeTime']
-    except Exception:
-        print(Exception)
+    except Exception as e:
+        print(e)
         print('No Failed imports')
         main_object_return['latest_failed_import'] = None
 
