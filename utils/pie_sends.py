@@ -14,11 +14,10 @@ def get_pie_status(client):
     
     # Gets around 0 length rolodex responses
     all_sends = 0
-    if r.text is not '[]':
-        # print(r.text)
+    if len(r.text) > 2:
         all_sends = len(list(json.loads(r.text)))
 
     if all_sends <= 10:
-        return ["fail", {'sent': all_sends}]
+        return ["fail", {'sent':all_sends}]
     else:
         return ["pass", {'sent': all_sends}]
