@@ -45,7 +45,14 @@
         </form>
 
         {% if client %}
-        <h3>{{ client }}</h3>
+        <h3>{{ client.id }}</h3>
+        <ul>
+
+          <li>PIE: {{ client.pie_status[0] }}</li>
+          <li>Feed: {{ client.feed_status[0] }}</li>
+          <li>Display: {{ client.display_status[0] }}</li>
+          <li>Pixel: {{ client.pixel_status[0] }}</li>
+        </ul>
         {% else %}
         <h3>Enter client name to see results</h3>
         <!-- Add client option -->
