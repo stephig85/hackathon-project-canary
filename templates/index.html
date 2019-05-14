@@ -18,6 +18,14 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <img src="../static/b-logo.jpg" width="100" class="d-inline-block logo" alt="b-logo">
       <h1>Canary</h1>
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Clients</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="subscriber.html">Subscribe</a>
+        </li>
+      </ul>
   </header>
 
   <div class="content">
@@ -35,9 +43,9 @@
         </form>
 
         {% if client %}
-        <h1>{{ client }}</h1>
+        <h3>{{ client }}</h3>
         {% else %}
-        <h1>Please Select a Client</h1>
+        <h3>Enter client name to see results</h3>
         <!-- Add client option -->
         {% endif %}
 
