@@ -8,8 +8,7 @@ from pandas import DataFrame, read_sql_query
 from pandas.io.sql import DatabaseError
 from pyathena import connect
 from pyathena.async_cursor import AsyncCursor
-import json
-from datetime import datetime
+from datetime import datetime as dt
 
 AWS_REGION = environ.get("AWS_REGION", "us-east-1")
 BV_NEXUS_ACCOUNT = "774013277495"
@@ -52,12 +51,22 @@ def get_status():
     conn = create_connection()
     # app.logger.info("executing query...\n%s", query)
     main_object_return = {
+        'display_status': '',
+        'pixel_status': ''
+    }
+    display_object_return = {
         'failed_dates': ''
+    }
+    pixel_object_return = {
+        'failed_dates': '',
+        'pixel_orders': '',
+        'pixel_orders_daily_avg': ''
     }
     try:
         # Ask pandas to read the query results into a DataFrame for us.
         df = read_sql_query(query, conn)
         result_data = df.to_dict()
+        # Get pageview data and check stDeviation
         pageviews = list(result_data['count_pageviews'].values())
         timestamps = list(result_data['ts'].values())
         stdev_pageviews = statistics.stdev(pageviews)
@@ -66,21 +75,40 @@ def get_status():
         pageviews_diff = [pageview - avg_pageviews for pageview in pageviews]
         # Find pageviews where the standard deviation is greater than 2x
         # Or less than a floor of 15 pageviews
-        display_status = ('pass')
+        display_status = 'pass'
         fail_ts = []
         for pg_diff in pageviews_diff:
-            if abs(pg_diff) > (stdev_pageviews * 2):
-                display_status = 'fail'
-                fail_ts.append(timestamps[pageviews_diff.index(pg_diff)])
-            elif abs(pg_diff) < 15:
+            # Set standard deviation of 1x for Hackathon so we can see fails
+            if (abs(pg_diff) > (stdev_pageviews)) or (abs(pg_diff) < 15):
                 display_status = 'fail'
                 fail_ts.append(timestamps[pageviews_diff.index(pg_diff)])
 
-        fail_dt = [datetime.fromtimestamp(ts).strftime("%Y-%m-%d") for ts in fail_ts]
-        main_object_return['failed_dates'] = fail_dt
-        # pixel = list(result_data['pixel_orders'].values())
-        # stdev_pixel = statistics.stdev(pixel)
-        # avg_pixel = statistics.mean(pixel)
+        fail_dt = [dt.fromtimestamp(ts).strftime("%Y-%m-%d") for ts in fail_ts]
+        display_object_return['failed_dates'] = fail_dt
+
+        # Get pixel data and check stDeviation
+        pixel_orders = list(result_data['pixel_orders'].values())
+        stdev_pixel = statistics.stdev(pixel_orders)
+        avg_pixel = statistics.mean(pixel_orders)
+        pixel_object_return['pixel_orders_daily_avg'] = round(avg_pixel)
+
+        # Find diff of daily orders to avg orders
+        orders_diff = [orders - avg_pixel for orders in pixel_orders]
+        # Find orders where the standard deviation is greater than 2x
+        # Or less than a floor of 15 orders
+        pixel_status = 'pass'
+        pixel_fail_ts = []
+        pixel_fail_count = []
+        for order_diff in orders_diff:
+            # Set standard deviation of 1x for Hackathon so we can see fails
+            if (abs(order_diff) > (stdev_pixel)) or (abs(order_diff) < 15):
+                pixel_status = 'fail'
+                pixel_fail_ts.append(timestamps[orders_diff.index(order_diff)])
+                pixel_fail_count.append(pixel_orders[orders_diff.index(order_diff)])
+
+        pixel_fail_dt = [dt.fromtimestamp(pts).strftime("%Y-%m-%d") for pts in pixel_fail_ts]
+        pixel_object_return['failed_dates'] = pixel_fail_dt
+        pixel_object_return['pixel_orders'] = pixel_fail_count
 
     except DatabaseError as e:
         # app.logger.exception("failed to execute query!")
@@ -90,8 +118,11 @@ def get_status():
         # app.logger.debug("closing connection...")
         conn.close()
 
-    final_return_object = [display_status, main_object_return]
-    print(final_return_object)
+    main_object_return['display_status'] = [display_status, display_object_return]
+    main_object_return['pixel_status'] = [pixel_status, pixel_object_return]
+
+    final_return_object = main_object_return
+    # print(final_return_object)
     return final_return_object
 
 
