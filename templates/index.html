@@ -1,62 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <title>Canary: Client Search</title>
-
-
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>b:Canary | Clients</title>
+
+  <!-- Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
 
+  <!-- Canary Style Overrides -->
   <link rel="stylesheet" href="../static/styles.css">
 </head>
 
 <body>
-  <header>
+  <!-- Navigation -->
+  <section class="navigation">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="collapse navbar-collapse" id="navbar">
-        <img src="../static/b-logo.jpg" width="100" class="d-inline-block logo" alt="b-logo">
-        <h1>Canary</h1>
-        <ul class="navbar-nav mr-auto">
+      <img src="../static/b-logo.jpg" width="100" class="d-inline-block logo" alt="b-logo">
+      <a class="navbar-brand" href="#">Canary</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="index.html">Clients <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#">Clients <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="subscriber.html">Subscribe</a>
+            <a class="nav-link" href="#">Subscribe</a>
           </li>
         </ul>
       </div>
-  </header>
+    </nav>
+  </section>
 
-  <div class="content">
-    <main>
-      <div class="main-content">
-        <form action="." method="GET">     
-          <legend>Client Name</legend>
-          <input type="text" id="chooseClient" name="chooseClient" placeholder="Client Name" required />
-          <!--  <legend>Environment</legend>
-                            <input type="radio" id="chooseEnvironment_prod" name="chooseEnvironment" value="prod" required checked />
-                            <label for="chooseEnvironment_prod">Production</label>
-                            <input type="radio" id="chooseEnvironment_stg" name="chooseEnvironment" value="stg" required />
-                            <label for="chooseEnvironment_stg">Staging</label> -->
-          <input type="submit" id="submit" value="Submit">
-        </form>
+  <!-- Begin Client Details -->
+  <section class="content">
+    <div class="container-fluid">
+      <!-- Form -->
+      <form>
+        <div class="form-group">
+          <label id="chooseClient">Client Name</label>
+          <input type="text" class="form-control" id="chooseClient" aria-describedby="Choose Client"
+            placeholder="Enter client name">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
 
-        {% if client %}
-        <h3>{{ client.id }}</h3>
-        <ul>
-
-          <li>PIE: {{ client.pie_status[0] }}</li>
-          <li>Feed: {{ client.feed_status[0] }}</li>
-          <li>Display: {{ client.display_status[0] }}</li>
-          <li>Pixel: {{ client.pixel_status[0] }}</li>
-        </ul>
-        {% else %}
-        <h3>Enter client name to see results</h3>
+      <!-- Client Results -->
+      {% if client %}
+      <h3>{{ client.id }}</h3>
+      {% else %}
+      <h4>Enter client name to see results</h3>
         <!-- Add client option -->
         {% endif %}
+
+        <div class="row">
+          <div class="col">
+            <h5>PIE</h5>
+            <p>{{ client.pie_status[0] }}</p>
+          </div>
+          <div class="col">
+            <h5>Pixel</h5>
+            <p>{{ client.pixel_status[0] }}</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <h5>Feed</h5>
+            <p>{{ client.feed_status[0] }}</p>
+          </div>
+          <div class="col">
+            <h5>Display</h5>
+            <p>{{ client.display_status[0] }}</p>
+          </div>
+
+        </div>
+    </div>
+  </section>
 
       </div>
       <ul class="notice">

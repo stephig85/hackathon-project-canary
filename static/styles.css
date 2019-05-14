@@ -7,54 +7,50 @@ body {
   font-family: 'gibsonregular', sans-serif;
 }
 
-header {
-  align-items: center;
-  /* background-color: #003D4D; */
-  /* color: #33BCA5; */
-  color: #003D4D;
-  padding: 1em;
-}
-
-h1 {
-    margin-top: .5em;
-}
-
-header h1 {
-  margin-right: 1em;
-}
-
-footer {
-  background: #D3D3D3;
-  bottom: 0;
-  font-size: .8em;
-  left: 0;
-  padding: 1em 0px;
-  position: absolute;
+h5 {
+  background: #EDEDED;
+  max-width: 50%;
   text-align: center;
-  width: 100%;
+  border-radius: 5%;
+  padding: 5px;
 }
 
-.nav-item {
-  margin: 1em;
-  margin-top: 2em;
+.navigation {
+  margin-bottom: 5em;
 }
 
-legend {
+.navbar-brand {
+  color: #003D4D !important;
   font-weight: bold;
-  margin: .5em 0em .5em 0em;
-  padding: 10px;
-}
-
-main {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
 }
 
 #chooseClient {
-  font-size: large;
-  padding: .75em;
-  width: 100%;
+  max-width: 50%;
+}
+
+.btn {
+  background: #E97C36;
+  border: none;
+  box-shadow: 1px 1px 1px #808080;
+  color: #FFFFFF;
+  display: inline;
+  font-size: medium;
+  margin: 2em auto;
+  padding: 1em;
+}
+
+.btn:hover {
+  filter: brightness(85%);
+  background: #E97C36;
+}
+
+btn:active {
+  border: none;
+  box-shadow: none;
+  left: 1px;
+  outline: none;
+  position: relative;
+  top: 1px;
 }
 
 #errorMessage {
@@ -71,45 +67,8 @@ main {
   width: 16px;
 }
 
-#submit {
-  background: #E97C36;
-  border: none;
-  box-shadow: 1px 1px 1px #808080;
-  color: #FFFFFF;
-  display: block;
-  font-size: large;
-  margin: 2em auto ;
-  padding: 1em;
-}
-
-#submit:hover {
-  filter: brightness(85%);
-}
-
-#submit:active {
-  border: none;
-  box-shadow: none;
-  left: 1px;
-  outline: none;
-  position: relative;
-  top: 1px;
-}
-
 .logo {
     margin-bottom: 12px;
-}
-
-.field-container {
-  display: inline-block;
-  margin-right: .75em;
-}
-
-.fieldset-container {
-  margin-left: 1em;
-}
-
-.main-content {
-  margin-bottom: 2em;
 }
 
 .notice {
