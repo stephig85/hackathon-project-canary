@@ -23,8 +23,7 @@ def pop_import_types(sodexo_request, import_type_string):
             import_type = single_import['type']
             if import_type != import_type_string:
                 sodexo_request.pop()[index]
-        except Exception as e:
-            print(e)
+        except Exception:
             pass
     return sodexo_request
 
@@ -59,16 +58,16 @@ def get_product_feed_status(client_name):
             last_update = single_import['completeTime']
 
             if imp_status == 'failed':
-                if latest_failed_import_index == None:
+                if latest_failed_import_index is None:
                     latest_failed_import_index = index
                 else:
                     compare_time = single_import['completeTime']
                     current_time = all_imports[latest_successful_import_index]['completeTime']
                     if compare_time > current_time:
-                        latest_failed_import_index 
+                        latest_failed_import_index
 
             if imp_status == 'completed':
-                if latest_successful_import_index == None:
+                if latest_successful_import_index is None:
                     latest_successful_import_index = index
                 else:
                     compare_time = single_import['completeTime']
@@ -100,7 +99,6 @@ def get_product_feed_status(client_name):
         main_object_return['latest_failed_import'] = all_imports[latest_failed_import_index]['completeTime']
     except Exception as e:
         print(e)
-        print('No Failed imports')
         main_object_return['latest_failed_import'] = None
 
     # example object
