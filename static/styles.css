@@ -21,7 +21,7 @@ h5 {
 
 .navbar-brand {
   color: #003D4D !important;
-  font-weight: bold;
+  font-size: 40px;
 }
 
 #chooseClient {
@@ -68,7 +68,7 @@ btn:active {
 }
 
 .logo {
-    margin-bottom: 12px;
+    margin-bottom: 25px;
 }
 
 .notice {
