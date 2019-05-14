@@ -12,3 +12,10 @@ function reRun() {
       window.location = "/" + cName
   });
 }
+
+var url = window.location.href;
+var client = url.substr(url.lastIndexOf('/') + 1);
+console.log(client);
+if (client != '') {
+    $('#clientName').val(client)
+}
