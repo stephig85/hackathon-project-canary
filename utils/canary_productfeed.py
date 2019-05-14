@@ -20,9 +20,10 @@ def pop_import_types(sodexo_request, import_type_string):
         try:
             import_type = single_import['type']
             if import_type != import_type_string:
-                all_imports.pop()[index]
+                sodexo_request.pop()[index]
         except Exception as e:
             pass
+    return sodexo_request
         
 # date last feed failed
 # if passed, what was the latest successful import
