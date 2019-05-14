@@ -51,10 +51,19 @@ def add_subscription():
 def run_checks(client):
     print(client)
     # Run Checks
-    pie_status = get_pie_status(client)
-    feed_status = get_product_feed_status(client)
-    display_status, pixel_status = get_display_status(client)
 
+    try:
+        pie_status = get_pie_status(client)
+    except:
+        pie_status = 'error'
+    try:
+        feed_status = get_product_feed_status(client)
+    except:
+        feed_status = 'error'
+    try:
+        display_status, pixel_status = get_display_status(client)
+    except:
+        display_status, pixel_status = 'error'
     # Build Response JSON
     results = {
         'id': client,
