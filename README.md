@@ -1,5 +1,11 @@
 # project-canary
 
+
+## About
+
+Canary notifies internal stakeholders of client outages of our 4 core features - PIE, Pixel, Catalog and Display - before the client knows it happened.
+Through internal notifications, Bazaarvoice can further improve client relations by taking a proactive approach to client uptime.
+
 ## To Run Locally
 
 1. Install AWS CLI
