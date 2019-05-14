@@ -86,20 +86,22 @@ def get_product_feed_status(client_name):
 
     try:
         main_object_return['latest_successful_import'] = all_imports[latest_successful_import_index]['completeTime']
+        if thirty_day_notify(all_imports[latest_successful_import_index]):
+            print('Notify client last import was 30 days ago')
+            stale_data = 'stale'
     except Exception as e:
         print(e)
         print('No Successful imports')
         main_object_return['latest_successful_import'] = None
-        stale_data = 'pass'
-        if thirty_day_notify(all_imports[latest_successful_import_index]):
-            print('Notify client last import was 30 days ago')
-            stale_data = 'stale'
+        stale_data = 'fail'
+        
 
     try:
         main_object_return['latest_failed_import'] = all_imports[latest_failed_import_index]['completeTime']
     except Exception as e:
         print(e)
         main_object_return['latest_failed_import'] = None
+        stale_data = 'pass'
 
     # example object
     # pass, fail, stale
