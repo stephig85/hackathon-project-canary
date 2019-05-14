@@ -53,10 +53,8 @@ def run_checks(client):
     # Run Checks
     pie_status = get_pie_status(client)
     feed_status = get_product_feed_status(client)
-    # display_status = get_display_status(client)
-    display_status = ['Fail', {}]
-    pixel_status = ['Fail', {}]
-    
+    display_status, pixel_status = get_display_status(client)
+
     # Build Response JSON
     results = {
         'id': client,
@@ -65,7 +63,7 @@ def run_checks(client):
         'display_status': display_status,
         'pixel_status': pixel_status
     }
-    
+
     # Register Updates
     print(results)
     mongo.db.clients.update({ 'id': client } , results)

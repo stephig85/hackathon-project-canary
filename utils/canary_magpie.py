@@ -117,12 +117,12 @@ def get_display_status(client_name):
         conn.close()
 
     print(display_status)
-    main_object_return['display_status'] = [display_status, display_object_return]
-    main_object_return['pixel_status'] = [pixel_status, pixel_object_return]
+    # main_object_return['display_status'] = [display_status, display_object_return]
+    # main_object_return['pixel_status'] = [pixel_status, pixel_object_return]
 
-    final_return_object = main_object_return
+    # final_return_object = main_object_return
     # print(final_return_object)
-    return final_return_object
+    return [display_status, display_object_return], [pixel_status, pixel_object_return]
 
 
 # if __name__ == "__main__":
