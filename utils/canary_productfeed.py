@@ -27,7 +27,7 @@ def pop_import_types():
 # date last feed failed
 # if passed, what was the latest successful import
 # if passed, notify if longer than 30 days
-def main_productfeed(client_name):
+def get_product_feed_status(client_name):
     wb_name = 'americanstandard-ca'
 
     endpoint = 'http://sodexo.bazaar.us-east-1.nexus.bazaarvoice.com/api/v1/job?client=' + str(client_name) + '&type=cis_xml_import'

@@ -43,9 +43,7 @@ def create_connection():
         aws_session_token=aws_credentials["SessionToken"],
     )
 
-def get_status():
-    client_name = sys.argv[1] if sys.argv[1] else None
-
+def get_display_status(client_name):
     query = "SELECT count_pageviews, pixel_orders, ts FROM bazaar_internal_client.nasa_tracking WHERE LOWER(client) = '{}' AND ts >= to_unixtime(current_date - interval '10' day) ORDER BY ts DESC LIMIT 10".format(client_name)
     # print(query)
     conn = create_connection()
@@ -118,6 +116,7 @@ def get_status():
         # app.logger.debug("closing connection...")
         conn.close()
 
+    print(display_status)
     main_object_return['display_status'] = [display_status, display_object_return]
     main_object_return['pixel_status'] = [pixel_status, pixel_object_return]
 
@@ -126,5 +125,5 @@ def get_status():
     return final_return_object
 
 
-if __name__ == "__main__":
-    get_status()
+# if __name__ == "__main__":
+#     get_status(client_name)
