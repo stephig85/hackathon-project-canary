@@ -13,12 +13,25 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <!-- Canary Style Overrides -->
   <link rel="stylesheet" href="../static/styles.css">
+  <script>
+  function getClientName() {
+    var cName = $('#clientName').val()
+    window.location = "/" + cName
+  }
+  function reRun() {
+    var cName = $('#clientName').val()
+    $.ajax({
+      url: "/run/" + cName,
+      context: document.body
+    }).done(function() {
+      window.location = "/" + cName
+    });
+  }
+</script>
 </head>
 
 <body>
@@ -51,39 +64,41 @@
       <form>
         <div class="form-group">
           <label id="chooseClient">Client Name</label>
-          <input type="text" class="form-control" id="chooseClient" aria-describedby="Choose Client"
+          <input type="text" class="form-control" id="clientName" aria-describedby="Choose Client"
             placeholder="Enter client name">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="button" class="btn btn-primary" onclick="getClientName(); return false;">Submit</button>
+          
+
         </div>
       </form>
-
       <!-- Client Results -->
       {% if client %}
       <h3>{{ client.id }}</h3>
       {% else %}
-      <h4>Enter client name to see results</h3>
+      <h4>Client hasn't been populated, click update to see results. This may take awhile.</h3>
+        <button type="button" class="btn btn-primary" onclick="reRun(); return false;">Update</button>
         <!-- Add client option -->
         {% endif %}
 
         <div class="row">
           <div class="col">
             <h5>PIE</h5>
-            <p>{{ client.pie_status[0] }}</p>
+            <p>{% if client.pie_status %}{{ client.pie_status[0] }}{% endif %}</p>
           </div>
           <div class="col">
             <h5>Pixel</h5>
-            <p>{{ client.pixel_status[0] }}</p>
+            <p>{% if client.pixel_status %}{{ client.pixel_status[0] }}{% endif %}</p>
           </div>
         </div>
 
         <div class="row">
           <div class="col">
             <h5>Feed</h5>
-            <p>{{ client.feed_status[0] }}</p>
+            <p>{% if client.feed_status %}{{ client.feed_status[0] }}{% endif %}</p>
           </div>
           <div class="col">
             <h5>Display</h5>
-            <p>{{ client.display_status[0] }}</p>
+            <p>{% if client.display_status %}{{ client.display_status[0] }}{% endif %}</p>
           </div>
 
         </div>

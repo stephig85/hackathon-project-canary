@@ -1,7 +1,6 @@
 import requests
 from requests.auth import HTTPBasicAuth
 from datetime import datetime, timedelta
-import csv
 import json
 from utils.credentials import ldap_username, ldap_password
 

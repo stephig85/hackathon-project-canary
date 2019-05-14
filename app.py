@@ -14,11 +14,19 @@ mongo = PyMongo(app)
 @app.route('/', methods=["GET"])
 @app.route('/<client>', methods=["GET"])
 def home(client=None):
+    print(client)
+    client_data = {
+        'id': '',
+        'pie_status': '',
+        'feed_status': '',
+        'display_status': '',
+        'pixel_status': ''
+    }
     if client is not None:
         client_data = mongo.db.clients.find_one({"id": client})
         return render_template("index.html", client=client_data)
     else:
-        return render_template("index.html", client=client)
+        return render_template("index.html", client=client_data)
 
 # Display subscriber page or create new subscriber
 @app.route("/subscriber/<subscriber>", methods=["GET", "POST"])
@@ -51,7 +59,6 @@ def add_subscription():
 def run_checks(client):
     print(client)
     # Run Checks
-
     try:
         pie_status = get_pie_status(client)
     except Exception:
@@ -79,7 +86,13 @@ def run_checks(client):
 
     # Register Updates
     print(results)
-    mongo.db.clients.update({ 'id': client } , results)
+    if mongo.db.clients.find({'id': client}).count() > 0:
+        x = mongo.db.clients.update({'id': client}, results)
+        print(x)
+    else:
+        x = mongo.db.clients.insert(results)
+        print(x)
+
     return jsonify(results)
 
 
