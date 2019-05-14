@@ -59,7 +59,7 @@ def get_display_status(client_name):
     }
     pixel_object_return = {
         'failed_dates': '',
-        'pixel_orders': '',
+        'failed_pixel_orders': '',
         'pixel_orders_daily_avg': ''
     }
     try:
@@ -81,7 +81,7 @@ def get_display_status(client_name):
         pg_fail_count = []
         for pg_diff in pageviews_diff:
             # Set standard deviation of 1x for Hackathon so we can see fails
-            if (abs(pg_diff) > (stdev_pageviews)) or (abs(pg_diff) < 15):
+            if (abs(pg_diff) > (stdev_pageviews * 2)) or (abs(pg_diff) < 15):
                 display_status = 'fail'
                 fail_ts.append(timestamps[pageviews_diff.index(pg_diff)])
                 pg_fail_count.append(pageviews[pageviews_diff.index(pg_diff)])
@@ -92,6 +92,7 @@ def get_display_status(client_name):
 
         # Get pixel data and check stDeviation
         pixel_orders = list(result_data['pixel_orders'].values())
+        print(pixel_orders)
         stdev_pixel = statistics.stdev(pixel_orders)
         avg_pixel = statistics.mean(pixel_orders)
         pixel_object_return['pixel_orders_daily_avg'] = round(avg_pixel)
@@ -105,14 +106,14 @@ def get_display_status(client_name):
         pixel_fail_count = []
         for order_diff in orders_diff:
             # Set standard deviation of 1x for Hackathon so we can see fails
-            if (abs(order_diff) > (stdev_pixel)) or (abs(order_diff) < 15):
+            if (abs(order_diff) > (stdev_pixel * 2)) or (order_diff == 0):
                 pixel_status = 'fail'
                 pixel_fail_ts.append(timestamps[orders_diff.index(order_diff)])
                 pixel_fail_count.append(pixel_orders[orders_diff.index(order_diff)])
 
         pixel_fail_dt = [dt.fromtimestamp(pts).strftime("%Y-%m-%d") for pts in pixel_fail_ts]
         pixel_object_return['failed_dates'] = pixel_fail_dt
-        pixel_object_return['pixel_orders'] = pixel_fail_count
+        pixel_object_return['failed_pixel_orders'] = pixel_fail_count
 
     except DatabaseError as e:
         # app.logger.exception("failed to execute query!")
