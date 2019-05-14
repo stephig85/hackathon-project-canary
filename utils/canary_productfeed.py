@@ -15,11 +15,11 @@ def thirty_day_notify(import_object):
         pass
 
 # remove all non-product feed imports
-def pop_import_types():
-    for index, single_import in enumerate(all_imports):
+def pop_import_types(sodexo_request, import_type_string):
+    for index, single_import in enumerate(sodexo_request):
         try:
             import_type = single_import['type']
-            if import_type != 'cis_xml_import':
+            if import_type != import_type_string:
                 all_imports.pop()[index]
         except Exception as e:
             pass
@@ -30,7 +30,7 @@ def pop_import_types():
 def get_product_feed_status(client_name):
     wb_name = 'americanstandard-ca'
 
-    endpoint = 'http://sodexo.bazaar.us-east-1.nexus.bazaarvoice.com/api/v1/job?client=' + str(client_name) + '&type=cis_xml_import'
+    endpoint = 'http://sodexo.bazaar.us-east-1.nexus.bazaarvoice.com/api/v1/job?client=' + str(client_name) 
     # ldap credentials here
     username = ldap_username
     password = ldap_password
@@ -47,6 +47,7 @@ def get_product_feed_status(client_name):
     }
 
     all_imports = list(json.loads(r.text))
+    all_imports = pop_import_types(all_imports, 'cis_xml_import')
 
     for index, single_import in enumerate(all_imports):
         try:
