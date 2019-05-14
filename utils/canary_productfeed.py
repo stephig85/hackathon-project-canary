@@ -10,7 +10,7 @@ def thirty_day_notify(import_object):
     try:
         complete_timestamp = import_object['completeTime']
         if complete_timestamp > cutoff_date:
-            return true
+            return True
     except Exception as e:
         pass
 
@@ -36,7 +36,7 @@ def get_product_feed_status(client_name):
     password = ldap_password
     r = requests.get(endpoint, auth=HTTPBasicAuth(username, password))
 
-    stale_data = False
+    stale_data = 'fail'
 
     latest_successful_import_index = None
     latest_failed_import_index = None
@@ -73,12 +73,6 @@ def get_product_feed_status(client_name):
             
         except Exception as e:
             pass
-
-    if thirty_day_notify(all_imports[latest_successful_import_index]):
-        print('Notify client last import was 30 days ago')
-        stale_data = True
-
-
     # print('Latest successful import object')
     # print(all_imports[latest_successful_import_index])
 
@@ -90,13 +84,20 @@ def get_product_feed_status(client_name):
     except:
         print('No Successful imports')
         main_object_return['latest_successful_import'] = None
+        stale_data = 'pass'
+        if thirty_day_notify(all_imports[latest_successful_import_index]):
+            print('Notify client last import was 30 days ago')
+            stale_data = 'stale'
     
     try:
         main_object_return['latest_failed_import'] = all_imports[latest_failed_import_index]['completeTime']
     except:
         print('No Failed imports')
         main_object_return['latest_failed_import'] = None
+
+        
     # example object
+    # pass, fail, stale
     # ['stale', {
     #     latest_successful_import: '2019-05-13 09:26:03.478039',
     #     latest_failed_import: '2019-05-06 09:26:03.478039'
