@@ -3,7 +3,7 @@
 ## To Run Locally
 
 1. Install AWS CLI
-* https://bits.bazaarvoice.com/confluence/display/DEV/Day+2+-+Get+access+to+Nexus#Day2-GetaccesstoNexus-Exercise3-InstallAWSCLI
+    * https://bits.bazaarvoice.com/confluence/display/DEV/Day+2+-+Get+access+to+Nexus#Day2-GetaccesstoNexus-Exercise3-InstallAWSCLI
 
 2. Run flask
 
