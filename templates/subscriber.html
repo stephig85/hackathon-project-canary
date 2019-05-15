@@ -2,132 +2,144 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>b:Canary | Clients</title>
-    <!-- Bootstrap -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
-    <!-- Canary Style Overrides -->
-    <link rel="stylesheet" href="../static/styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>b:Canary | Clients</title>
+  <!-- Bootstrap -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <!-- Canary Style Overrides -->
+  <link rel="stylesheet" href="../static/styles.css">
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="collapse navbar-collapse" id="navbar">
-                <img src="../static/b-logo.jpg" width="100" class="d-inline-block logo" alt="b-logo">
-                <h1>Canary</h1>
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/index">Clients</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/subscriber">Subscribe <span class="sr-only">(current)</span></a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    <div class="content">
-        <main>
-            <div class="main-content">
-              <div class="row">
-                    <div class="form-group">
-                        <label id="chooseSubscriber">Enter Your Email Name</label>
-                        <input type="text" class="form-control" id="subscriberName" aria-describedby="Choose Subscriber" placeholder="ex. eddy.ruz">
-                        <br>
-                        <button type="button" class="btn btn-primary" onclick="getSubscriberName(); return false;">Submit</button>
-                    </div>
-                </div>
-            </div>
-            </form>
-            {% if subscriber %}
-            <row>
-                <h1>{{ subscriber.id }}</h1>
-                <p>{{ subscriber.email }}</p>
-            </row>
-            {% for client in subscriber.client_data %}
-            <h3>{{ client.id }}</h3>
-            <div class="row">
-                <div class="col">
-                    <h5>PIE</h5>
-                    <p>{% if client.pie_status %}{{ client.pie_status[0] }}{% endif %}</p>
-                </div>
-                <div class="col">
-                    <h5>Pixel</h5>
-                    <p>{% if client.pixel_status %}{{ client.pixel_status[0] }}{% endif %}</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <h5>Feed</h5>
-                    <p>{% if client.feed_status %}{{ client.feed_status[0] }}{% endif %}</p>
-                </div>
-                <div class="col">
-                    <h5>Display</h5>
-                    <p>{% if client.display_status %}{{ client.display_status[0] }}{% endif %}</p>
-                </div>
-            </div>
-            {% endfor %}
-            <div class="form-group">
-                <label id="chooseSubscriber">Add Subscription</label>
-                <input type="text" class="form-control" id="clientName" aria-describedby="Choose Client" placeholder="ex. csttires">
-                <br>
-                <button type="button" class="btn btn-primary" onclick="addSubscription(); return false;">Submit</button>
-                {% else %}
-                <h1>Subscriber does not exist</h1>
-                <button type="button" class="btn btn-primary" onclick="newSubscriber(); return false;">Create</button>
-            </div>
-            {% endif %}
-            <ul class="notice">
-                <li>Canary updates nightly. Please avoid running jobs</li>
-            </ul>
-        </main>
+  <!-- Navigation -->
+  <section class="navigation">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <img src="../static/b-logo.jpg" width="100" class="d-inline-block logo" alt="b-logo">
+      <a class="navbar-brand" href="#">Canary</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="clients">Clients</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="subscriber">Subscribe <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </section>
+
+  <!-- Subscribe User -->
+  <section class="content">
+    <div class="container-fluid">
+
+        <div class="form-group">
+          <label id="chooseSubscriber">Enter Your Email</label>
+          <input type="text" class="form-control" id="subscriberName" aria-describedby="Choose Subscriber"
+            placeholder="ex. eddy.ruz">
+          <br />
+          <button type="button" class="btn btn-primary" onclick="getSubscriberName(); return false;">Submit</button>
+        </div>
+      </div>
+  </section>
+
+  <!-- Subscriber Information -->
+  <section class="content">
+    <div class="container-fluid">
+
+    {% if subscriber %}
+    <div class="row">
+      <div class="col-6">
+        <h3>{{ subscriber.id }}</h3>
+      </div>
+      <div class="col-6">
+        <h3>{{ subscriber.email }}</h3>
+      </div>
     </div>
-    <footer style="bottom: inherit !important;">
-        <p>Find a bug? Have a feature request? Need someone to talk to? Reach out to Eddy Ruz in Slack</p>
-    </footer>
-    <script>
-    // SUBSCRIBER FUNCTIONS
+
+    <div class="row">
+      <div class="col">
+        {% for client in subscriber.client_data %}
+      </div>
+      <div class="col">
+        <h3>{{ client.id }}</h3>
+      </div>
+    </div>
+
+    {% endfor %}
+    <div class="form-group">
+      <label id="chooseSubscriber">Add Subscription</label>
+      <input type="text" class="form-control" id="clientName" aria-describedby="Choose Client"
+        placeholder="ex. csttires">
+      <br>
+      <button type="button" class="btn btn-primary" onclick="addSubscription(); return false;">Submit</button>
+      {% else %}
+      <h1>Subscriber does not exist</h1>
+      <button type="button" class="btn btn-primary" onclick="newSubscriber(); return false;">Create</button>
+    </div>
+    {% endif %}
+    </div>
+  </section>
+  </div>
+
+  <footer>
+    <p class="notice">Canary updates nightly. Please avoid running jobs</p>
+    <p>Find a bug? Have a feature request? Need someone to talk to? Reach out to Eddy Ruz in Slack</p>
+    <p> © Bazaarvoice. All rights reserved.
+      <a id="privacyPolicy" href="http://www.bazaarvoice.com/privacy-policy" target="_blank"
+        style="white-space: nowrap;"><span>Privacy Policy</span></a>
+      <a id="legal" href="http://www.bazaarvoice.com/legal" target="_blank"><span>Legal</span></a></p>
+  </footer>
+
+  <!-- Subscriber Functions -->
+  <script>
     // TODO: This function duplicates getClientName. not dry.
-    (function($) {
-        var bvurl = window.location.href;
-        var subscriber = bvurl.substr(bvurl.lastIndexOf('/') + 1);
-        if (subscriber != 'subscriber') {
-            $('#subscriberName').val(subscriber)
-        }
+    (function ($) {
+      var bvurl = window.location.href;
+      var subscriber = bvurl.substr(bvurl.lastIndexOf('/') + 1);
+      if (subscriber != 'subscriber') {
+        $('#subscriberName').val(subscriber)
+      }
     }(jQuery));
 
     function addSubscription() {
-        var bvurl = window.location.href;
-        var sName = bvurl.substr(bvurl.lastIndexOf('/') + 1);
-        var cName = $('#clientName').val()
-        $.ajax({
-            url: "/subscriber/add_subscription/" + sName + '/' + cName,
-            context: document.body
-        }).done(function(res) {
-            window.location = "/subscriber/" + sName
-        });
+      var bvurl = window.location.href;
+      var sName = bvurl.substr(bvurl.lastIndexOf('/') + 1);
+      var cName = $('#clientName').val()
+      $.ajax({
+        url: "/subscriber/add_subscription/" + sName + '/' + cName,
+        context: document.body
+      }).done(function (res) {
+        window.location = "/subscriber/" + sName
+      });
     }
 
     function getSubscriberName() {
-        var sName = $('#subscriberName').val()
-        window.location = "/subscriber/" + sName
+      var sName = $('#subscriberName').val()
+      window.location = "/subscriber/" + sName
     }
 
     function newSubscriber() {
-        var sName = subscriber
-        $.ajax({
-            url: "/create_subscriber/" + sName,
-            context: document.body
-        }).done(function(res) {
-            window.location = "/subscriber/" + sName
-        });
+      var sName = subscriber
+      $.ajax({
+        url: "/create_subscriber/" + sName,
+        context: document.body
+      }).done(function (res) {
+        window.location = "/subscriber/" + sName
+      });
     }
-    </script>
+
+  </script>
 </body>
 
 </html>
