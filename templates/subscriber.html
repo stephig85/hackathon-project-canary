@@ -85,7 +85,7 @@
       <br />
       <button type="button" class="btn btn-primary" onclick="addSubscription(); return false;">Submit</button>
       {% else %}
-      <h3>Subscriber does not exist</h3>
+      <h3>Subscriber does not exist to generate after clicking Submit</h3>
       <button type="button" class="btn btn-primary" onclick="newSubscriber(); return false;">Create</button>
     </div>
     {% endif %}
@@ -108,6 +108,7 @@
     (function ($) {
       var bvurl = window.location.href;
       var subscriber = bvurl.substr(bvurl.lastIndexOf('/') + 1);
+      console.log(subscriber);
       if (subscriber != 'subscriber') {
         $('#subscriberName').val(subscriber)
       }
@@ -131,7 +132,7 @@
     }
 
     function newSubscriber() {
-      var sName = subscriber
+      var sName = $('#subscriberName').val()
       $.ajax({
         url: "/create_subscriber/" + sName,
         context: document.body
