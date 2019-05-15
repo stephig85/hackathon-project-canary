@@ -44,7 +44,7 @@
     <div class="container-fluid">
 
         <div class="form-group">
-          <label id="chooseSubscriber">Enter Your Email</label>
+          <label id="chooseSubscriber">Enter Your Email Name Only (not full address)</label>
           <input type="text" class="form-control" id="subscriberName" aria-describedby="Choose Subscriber"
             placeholder="ex. eddy.ruz">
           <br />
@@ -81,10 +81,10 @@
       <label id="chooseSubscriber">Add Subscription</label>
       <input type="text" class="form-control" id="clientName" aria-describedby="Choose Client"
         placeholder="ex. csttires">
-      <br>
+      <br />
       <button type="button" class="btn btn-primary" onclick="addSubscription(); return false;">Submit</button>
       {% else %}
-      <h1>Subscriber does not exist</h1>
+      <h3>Subscriber does not exist</h3>
       <button type="button" class="btn btn-primary" onclick="newSubscriber(); return false;">Create</button>
     </div>
     {% endif %}
