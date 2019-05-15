@@ -1,3 +1,4 @@
+// CLIENT FUNCTIONS
 function getClientName() {
   var cName = $('#clientName').val()
   window.location = "/" + cName
@@ -15,7 +16,6 @@ function reRun() {
 
 var url = window.location.href;
 var client = url.substr(url.lastIndexOf('/') + 1);
-console.log(client);
 if (client != '') {
     $('#clientName').val(client)
 }

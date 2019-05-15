@@ -14,7 +14,6 @@ mongo = PyMongo(app)
 @app.route('/', methods=["GET"])
 @app.route('/<client>', methods=["GET"])
 def home(client=None):
-    print(client)
     client_data = {
         'id': '',
         'pie_status': '',
@@ -29,35 +28,46 @@ def home(client=None):
         return render_template("index.html", client=client_data)
 
 # Display subscriber page or create new subscriber
-@app.route("/subscriber/<subscriber>", methods=["GET", "POST"])
-def subscriber(subscriber):
-    if request.method == 'GET':
-        user = mongo.db.users.find_one({"id": subscriber})
-        print(user)
+@app.route('/subscriber', methods=["GET"])
+@app.route("/subscriber/<subscriber>", methods=["GET"])
+def subscriber(subscriber=None):
+    if subscriber is not None:
+        user = mongo.db.subscribers.find_one({"id": subscriber})
         if user == None:
             return render_template("subscriber.html")
         else:
+            # Find all clients in user list
+            clients = user['subscriptions']
+            all_clients_data = []
+            for client in clients:
+                client_data = mongo.db.clients.find_one({"id": client})
+                print(client_data)
+                all_clients_data.append(client_data)
+            user['client_data'] = all_clients_data
             return render_template("subscriber.html", subscriber=user)
-    if request.method == 'POST':
-        email = request.form["enterEmail"]
-        client = request.form["chooseClient"]
+    else:
+        return render_template("subscriber.html")
+
+
+# Update Data we have for a client
+@app.route("/create_subscriber/<subscriber>", methods=["GET"])
+def create_subscriber(subscriber):
+    mongo.db.subscribers.insert({'id': subscriber})
+    return jsonify({'status' : 'success'})
 
 
 # Add subscription to an existing subscriber
-@app.route("/subscriber/add_subscription", methods=["POST"])
-def add_subscription():
-    client = request.form["chooseClient"]
-    subscriber = request.form["chooseSubscriber"]
-    mongo.db.users.update(
+@app.route("/subscriber/add_subscription/<subscriber>/<client>", methods=["GET"])
+def add_subscription(subscriber, client):
+    mongo.db.subscribers.update(
         {"id": subscriber},
         {"$addToSet": {"subscriptions": client}}
     )
-    return jsonify({})
+    return jsonify({'status' : 'success'})
 
 # Update Data we have for a client
 @app.route("/run/<client>", methods=["GET"])
 def run_checks(client):
-    print(client)
     # Run Checks
     try:
         pie_status = get_pie_status(client)
@@ -74,6 +84,7 @@ def run_checks(client):
     except Exception:
         display_status, pixel_status = 'error'
         print(Exception)
+
 
     # Build Response JSON
     results = {
@@ -95,10 +106,6 @@ def run_checks(client):
 
     return jsonify(results)
 
-
-@app.route("/", methods=["POST"])
-def update_subscriber():
-    return render_template("index.html")
 
 
 if __name__ == "__main__":
