@@ -10,6 +10,7 @@ app = Flask(__name__)
 app.config['MONGO_URI'] = "mongodb://127.0.0.1:27017/canary"
 mongo = PyMongo(app)
 
+
 # Display home page with or without client grid
 @app.route('/', methods=["GET"])
 @app.route('/<client>', methods=["GET"])
@@ -27,13 +28,14 @@ def home(client=None):
     else:
         return render_template("index.html", client=client_data)
 
+
 # Display subscriber page or create new subscriber
 @app.route('/subscriber', methods=["GET"])
 @app.route("/subscriber/<subscriber>", methods=["GET"])
 def subscriber(subscriber=None):
     if subscriber is not None:
         user = mongo.db.subscribers.find_one({"id": subscriber})
-        if user == None:
+        if user is None:
             return render_template("subscriber.html")
         else:
             # Find all clients in user list
@@ -54,7 +56,7 @@ def subscriber(subscriber=None):
 @app.route("/create_subscriber/<subscriber>", methods=["GET"])
 def create_subscriber(subscriber):
     mongo.db.subscribers.insert({'id': subscriber, 'subscriptions': []})
-    return jsonify({'status' : 'success'})
+    return jsonify({'status': 'success'})
 
 
 # Add subscription to an existing subscriber
@@ -64,7 +66,8 @@ def add_subscription(subscriber, client):
         {"id": subscriber},
         {"$addToSet": {"subscriptions": client}}
     )
-    return jsonify({'status' : 'success'})
+    return jsonify({'status': 'success'})
+
 
 # Update Data we have for a client
 @app.route("/run/<client>", methods=["GET"])
@@ -105,7 +108,6 @@ def run_checks(client):
         print(x)
 
     return client
-
 
 
 if __name__ == "__main__":
