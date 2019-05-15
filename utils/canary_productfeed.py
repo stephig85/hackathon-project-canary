@@ -7,9 +7,10 @@ from utils.credentials import ldap_username, ldap_password
 
 def thirty_day_notify(import_object):
     cutoff_date = datetime.today() - timedelta(days=30)
+    cutoff_ts = datetime.timestamp(cutoff_date)
     try:
         complete_timestamp = import_object['completeTime']
-        if complete_timestamp > cutoff_date:
+        if complete_timestamp > cutoff_ts:
             return True
     except Exception as e:
         print(e)

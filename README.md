@@ -32,6 +32,7 @@ mongod
 mongo
 use canary
 db.users.insert({id: 'greg.garcia',email: 'greg.garcia@bazaarvoice.com',subscriptions: ['csttires', 'hasbro']})
+db.createCollection('clients')
 ```
 
 ## Data Sources
