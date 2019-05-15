@@ -1,6 +1,7 @@
 function getClientName() {
   var cName = $('#clientName').val()
   window.location = "/" + cName
+  return false;
 }
 
 function populateClient() {
@@ -11,6 +12,7 @@ function populateClient() {
   }).done(function() {
       window.location = "/" + cName
   });
+  return false;
 }
 
 var url = window.location.href;
@@ -19,3 +21,8 @@ console.log(client);
 if (client != '') {
     $('#clientName').val(client)
 }
+$("#clientName").keyup(function(event) {
+    if (event.keyCode === 13) {
+        getClientName()
+    }
+});
