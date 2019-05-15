@@ -3,7 +3,7 @@ function getClientName() {
   window.location = "/" + cName
 }
 
-function reRun() {
+function populateClient() {
   var cName = $('#clientName').val()
   $.ajax({
       url: "/run/" + cName,
