@@ -69,26 +69,29 @@ def get_display_status(client_name):
         # Get pageview data and check stDeviation
         pageviews = list(result_data['count_pageviews'].values())
         timestamps = list(result_data['ts'].values())
-        stdev_pageviews = statistics.stdev(pageviews)
-        avg_pageviews = statistics.mean(pageviews)
-        display_object_return['avg_pageviews'] = avg_pageviews
-        # Find diff of daily pageviews to avg pageviews
-        pageviews_diff = [pageview - avg_pageviews for pageview in pageviews]
-        # Find pageviews where the standard deviation is greater than 2x
-        # Or less than a floor of 15 pageviews
-        display_status = 'pass'
-        fail_ts = []
-        pg_fail_count = []
-        for pg_diff in pageviews_diff:
-            # Set standard deviation of 1x for Hackathon so we can see fails
-            if (abs(pg_diff) > (stdev_pageviews)) or (abs(pg_diff) < 15):
-                display_status = 'fail'
-                fail_ts.append(timestamps[pageviews_diff.index(pg_diff)])
-                pg_fail_count.append(pageviews[pageviews_diff.index(pg_diff)])
+        if any(elem is None for elem in pageviews):
+            display_status = 'fail'
+        else:
+            stdev_pageviews = statistics.stdev(pageviews)
+            avg_pageviews = statistics.mean(pageviews)
+            display_object_return['avg_pageviews'] = avg_pageviews
+            # Find diff of daily pageviews to avg pageviews
+            pageviews_diff = [pageview - avg_pageviews for pageview in pageviews]
+            # Find pageviews where the standard deviation is greater than 2x
+            # Or less than a floor of 15 pageviews
+            display_status = 'pass'
+            fail_ts = []
+            pg_fail_count = []
+            for pg_diff in pageviews_diff:
+                # Set standard deviation of 1x for Hackathon so we can see fails
+                if (abs(pg_diff) > (stdev_pageviews)) or (abs(pg_diff) < 15):
+                    display_status = 'fail'
+                    fail_ts.append(timestamps[pageviews_diff.index(pg_diff)])
+                    pg_fail_count.append(pageviews[pageviews_diff.index(pg_diff)])
 
-        fail_dt = [dt.fromtimestamp(ts).strftime("%Y-%m-%d") for ts in fail_ts]
-        display_object_return['failed_dates'] = fail_dt
-        display_object_return['failed_pageview_counts'] = pg_fail_count
+            fail_dt = [dt.fromtimestamp(ts).strftime("%Y-%m-%d") for ts in fail_ts]
+            display_object_return['failed_dates'] = fail_dt
+            display_object_return['failed_pageview_counts'] = pg_fail_count
 
         # Get pixel data and check stDeviation
         pixel_orders = list(result_data['pixel_orders'].values())

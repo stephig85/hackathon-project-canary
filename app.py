@@ -85,7 +85,6 @@ def run_checks(client):
         display_status, pixel_status = 'error'
         print(Exception)
 
-
     # Build Response JSON
     results = {
         'id': client,
@@ -104,7 +103,7 @@ def run_checks(client):
         x = mongo.db.clients.insert(results)
         print(x)
 
-    return jsonify(results)
+    return client
 
 
 
