@@ -52,21 +52,29 @@
             <div class="row">
                 <div class="col">
                     <h5>PIE</h5>
-                    <p>{% if client.pie_status %}{{ client.pie_status[0] }}{% endif %}</p>
+                    <p>
+                      {% if client.pie_status %}
+                        {{ client.pie_status[0] }} - PIE's Sent in the Last 7 Days - {{ client.pie_status[1]['sent'] }} 
+                      {% endif %}
+                    </p>
                 </div>
                 <div class="col">
                     <h5>Pixel</h5>
-                    <p>{% if client.pixel_status %}{{ client.pixel_status[0] }}{% endif %}</p>
+                    <p>
+                      {% if client.pixel_status %}
+                        {{ client.pixel_status[0] }} - Pixel Details - {{ client.pixel_status[1] }}
+                      {% endif %}
+                    </p>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <h5>Feed</h5>
-                    <p>{% if client.feed_status %}{{ client.feed_status[0] }}{% endif %}</p>
+                    <p>{% if client.feed_status %}{{ client.feed_status[0] }} - Feed Details - {{ client.feed_status[1] }}{% endif %}</p>
                 </div>
                 <div class="col">
                     <h5>Display</h5>
-                    <p>{% if client.display_status %}{{ client.display_status[0] }}{% endif %}</p>
+                    <p>{% if client.display_status %}{{ client.display_status[0] }} - Display Details - {{ client.display_status[1] }}{% endif %}</p>
                 </div>
             </div>
             {% else %}
