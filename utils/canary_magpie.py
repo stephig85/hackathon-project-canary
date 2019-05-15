@@ -84,7 +84,7 @@ def get_display_status(client_name):
             pg_fail_count = []
             for pg_diff in pageviews_diff:
                 # Set standard deviation of 1x for Hackathon so we can see fails
-                if (abs(pg_diff) > (stdev_pageviews)) or (abs(pg_diff) < 15):
+                if (abs(pg_diff) > (stdev_pageviews * 2)) or (abs(pg_diff) < 15):
                     display_status = 'fail'
                     fail_ts.append(timestamps[pageviews_diff.index(pg_diff)])
                     pg_fail_count.append(pageviews[pageviews_diff.index(pg_diff)])
@@ -108,7 +108,7 @@ def get_display_status(client_name):
         pixel_fail_count = []
         for order_diff in orders_diff:
             # Set standard deviation of 1x for Hackathon so we can see fails
-            if (abs(order_diff) > (stdev_pixel)) or (order_diff == 0):
+            if (abs(order_diff) > (stdev_pixel * 2)) or (order_diff == 0):
                 pixel_status = 'fail'
                 pixel_fail_ts.append(timestamps[orders_diff.index(order_diff)])
                 pixel_fail_count.append(pixel_orders[orders_diff.index(order_diff)])
