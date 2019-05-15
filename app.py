@@ -37,6 +37,7 @@ def subscriber(subscriber=None):
             return render_template("subscriber.html")
         else:
             # Find all clients in user list
+            print(user)
             clients = user['subscriptions']
             all_clients_data = []
             for client in clients:
@@ -52,7 +53,7 @@ def subscriber(subscriber=None):
 # Update Data we have for a client
 @app.route("/create_subscriber/<subscriber>", methods=["GET"])
 def create_subscriber(subscriber):
-    mongo.db.subscribers.insert({'id': subscriber})
+    mongo.db.subscribers.insert({'id': subscriber, 'subscriptions': []})
     return jsonify({'status' : 'success'})
 
 
