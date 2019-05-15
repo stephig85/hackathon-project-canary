@@ -1,10 +1,10 @@
-a {
-  color: #003D4D
-}
-
 body {
   background-color: #FAFAF7;
   font-family: 'gibsonregular', sans-serif;
+}
+
+a {
+  color: #003D4D
 }
 
 h5 {
@@ -13,6 +13,10 @@ h5 {
   text-align: center;
   border-radius: 5%;
   padding: 5px;
+}
+
+.logo {
+  margin-bottom: 25px;
 }
 
 .navigation {
@@ -67,17 +71,17 @@ btn:active {
   width: 16px;
 }
 
-.logo {
-    margin-bottom: 25px;
+footer {
+  text-align: center;
+  margin-top: 10em;
+  font-size: 12px;
 }
 
 .notice {
   background-color: #FFF3D4;
   border: thin solid #000000;
   font-weight: bold;
-}
-
-ul.notice {
-  margin-top: 2em;
-  padding: 1em 2em;
+  padding: 3px;
+  margin: 20px;
+  text-align: center;
 }

@@ -52,49 +52,52 @@
           <input type="text" class="form-control" id="clientName" aria-describedby="Choose Client"
             placeholder="Enter client name">
           <button type="button" class="btn btn-primary" onclick="getClientName(); return false;">Submit</button>
-        
         </div>
       </form>
+
       <!-- Client Results -->
       {% if client %}
       <h3>{{ client.id }}</h3>
       {% else %}
-      <h4>Client has not yet been populated, please click "Update" to see results. This may take awhile.</h4>
-        <button type="button" class="btn btn-primary" onclick="populateClient(); return false;">Populate</button>
-        <!-- Add client option -->
-        {% endif %}
+      <h4>Client has not yet been populated, please click "Populate" to see results. This may take awhile.</h4>
+      <button type="button" class="btn btn-primary" onclick="populateClient(); return false;">Populate</button>
+      <!-- Add client option -->
+      {% endif %}
 
-        <div class="row">
-          <div class="col">
-            <h5>PIE</h5>
-            <p>{% if client.pie_status %}{{ client.pie_status[0] }}{% endif %}</p>
-          </div>
-          <div class="col">
-            <h5>Pixel</h5>
-            <p>{% if client.pixel_status %}{{ client.pixel_status[0] }}{% endif %}</p>
-          </div>
+      <div class="row">
+        <div class="col">
+          <h5>PIE</h5>
+          <p>{% if client.pie_status %}{{ client.pie_status[0] }}{% endif %}</p>
         </div>
-
-        <div class="row">
-          <div class="col">
-            <h5>Feed</h5>
-            <p>{% if client.feed_status %}{{ client.feed_status[0] }}{% endif %}</p>
-          </div>
-          <div class="col">
-            <h5>Display</h5>
-            <p>{% if client.display_status %}{{ client.display_status[0] }}{% endif %}</p>
-          </div>
-
+        <div class="col">
+          <h5>Pixel</h5>
+          <p>{% if client.pixel_status %}{{ client.pixel_status[0] }}{% endif %}</p>
         </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <h5>Feed</h5>
+          <p>{% if client.feed_status %}{{ client.feed_status[0] }}{% endif %}</p>
+        </div>
+        <div class="col">
+          <h5>Display</h5>
+          <p>{% if client.display_status %}{{ client.display_status[0] }}{% endif %}</p>
+        </div>
+      </div>
     </div>
   </section>
 
-      </div>
-      <p class="notice">Canary updates nightly. Please avoid running jobs</p>
-
   <footer>
+    <p class="notice">Canary updates nightly. Please avoid running jobs</p>
+    
     <p>Find a bug? Have a feature request? Need someone to talk to? Reach out to Eddy Ruz in Slack</p>
+   
+    <p class ="bv-official"> © Bazaarvoice. All rights reserved.
+      <a id="privacyPolicy" href="http://www.bazaarvoice.com/privacy-policy" target="_blank" style="white-space: nowrap;"><span>Privacy Policy</span></a>
+      <a id="legal" href="http://www.bazaarvoice.com/legal" target="_blank"><span>Legal</span></a></p>
   </footer>
+
 </body>
 <script src="../static/main.js"></script>
 
